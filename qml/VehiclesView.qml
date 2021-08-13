@@ -7,7 +7,7 @@ import Dreka.Draken 1.0
 Controls.Pane {
     id: root
 
-    padding: 0
+    padding: Controls.Theme.margins
 
     VehiclesController {
         id: controller
@@ -32,8 +32,12 @@ Controls.Pane {
                 flat: true
                 round: true
                 iconSource: "qrc:/icons/up.svg"
-                Layout.rightMargin: Controls.Theme.margins
             }
+        }
+
+        Loader {
+            source: "GenericDashboard.qml"
+            Layout.fillWidth: true
         }
     }
 }

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/Draken">
         <file>VehiclesView.qml</file>
+        <file>GenericDashboard.qml</file>
     </qresource>
 </RCC>
