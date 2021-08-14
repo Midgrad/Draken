@@ -23,6 +23,7 @@ Controls.Pane {
             spacing: Controls.Theme.spacing
 
             Controls.ComboBox {
+                id: vehiclesBox
                 flat: true
                 model: controller.vehicles
                 labelText: qsTr("Vehicles")
@@ -35,8 +36,8 @@ Controls.Pane {
             }
         }
 
-        Loader {
-            source: "GenericDashboard.qml"
+        GenericDashboard {
+            vehicle: vehiclesBox.currentText
             Layout.fillWidth: true
         }
     }

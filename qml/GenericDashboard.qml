@@ -6,7 +6,14 @@ import Dreka.Draken 1.0
 Column {
     id: root
 
+    property alias vehicle: controller.root
+
+    // TODO: to helper
+    function guardNaN(value) { return value ? value : NaN; }
+
     spacing: Controls.Theme.spacing
+
+    ParametersController { id: controller }
 
     Indicators.Text { text: qsTr("STATE: -") }
 
@@ -18,18 +25,24 @@ Column {
             width: root.width / 3.75
 
             Indicators.ValueLabel {
+                width: parent.width
                 prefix: qsTr("GS")
-                width: parent.width
+                tipText: qsTr("Ground speed")
+                value: guardNaN(controller.parameters.gs)
             }
 
             Indicators.ValueLabel {
+                width: parent.width
                 prefix: qsTr("IAS")
-                width: parent.width
+                tipText: qsTr("Indicated air speed")
+                value: guardNaN(controller.parameters.ias)
             }
 
             Indicators.ValueLabel {
-                prefix: qsTr("TAS")
                 width: parent.width
+                prefix: qsTr("TAS")
+                tipText: qsTr("True air speed")
+                value: guardNaN(controller.parameters.tas)
             }
         }
 
@@ -38,14 +51,17 @@ Column {
             width: root.width / 2.15
             height: width * 1.35
             markWidth: 1.5
-            markFactor: 0.9
+            markFactor: 0.8
             zigzag: 7
+            pitch: guardNaN(controller.parameters.pitch)
+            roll: guardNaN(controller.parameters.roll)
 
             Indicators.ValueLabel {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -parent.height / 4
                 prefixFont.pixelSize: Controls.Theme.auxFontSize * 0.8
                 prefix: qsTr("PTCH")
+                value: ai.pitch
             }
 
             Indicators.ValueLabel {
@@ -53,6 +69,7 @@ Column {
                 anchors.verticalCenterOffset: parent.height / 4
                 prefixFont.pixelSize: Controls.Theme.auxFontSize * 0.8
                 prefix: qsTr("ROLL")
+                value: ai.roll
             }
         }
 
@@ -61,18 +78,24 @@ Column {
             width: root.width / 3.75
 
             Indicators.ValueLabel {
-                prefix: qsTr("SAT")
                 width: parent.width
-            }
-
-            Indicators.ValueLabel {
                 prefix: qsTr("ALT")
-                width: parent.width
+                tipText: qsTr("Satellite altitude above main sea level")
+                value: guardNaN(controller.parameters.satelliteAltitude)
             }
 
             Indicators.ValueLabel {
-                prefix: qsTr("HGT")
                 width: parent.width
+                prefix: qsTr("HGT")
+                tipText: qsTr("Height relative HOME position")
+                value: guardNaN(controller.parameters.relativeHeight)
+            }
+
+            Indicators.ValueLabel {
+                width: parent.width
+                prefix: qsTr("ELV")
+                tipText: qsTr("Elevation above terrain")
+                value: guardNaN(controller.parameters.elevation)
             }
         }
     }

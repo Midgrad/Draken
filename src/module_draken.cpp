@@ -4,6 +4,7 @@
 #include <QGuiApplication>
 #include <QQmlEngine>
 
+#include "parameters_controller.h"
 #include "vehicles_controller.h"
 
 using namespace draken::app;
@@ -14,6 +15,8 @@ void registerTypes()
 
     qmlRegisterType<draken::endpoint::VehiclesController>("Dreka.Draken", 1, 0,
                                                           "VehiclesController");
+    qmlRegisterType<draken::endpoint::ParametersController>("Dreka.Draken", 1, 0,
+                                                            "ParametersController");
 }
 
 Q_COREAPP_STARTUP_FUNCTION(registerTypes);
