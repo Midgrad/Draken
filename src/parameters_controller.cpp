@@ -12,8 +12,11 @@ constexpr char adsb[] = "adsb";
 using namespace kjarni::domain;
 using namespace draken::endpoint;
 
-ParametersController::ParametersController(QObject* parent) : QObject(parent)
+ParametersController::ParametersController(QObject* parent) :
+    QObject(parent),
+    m_pTree(Locator::get<IPropertyTree>())
 {
+    Q_ASSERT(m_pTree);
 }
 
 QString ParametersController::root() const
@@ -23,7 +26,7 @@ QString ParametersController::root() const
 
 QJsonObject ParametersController::parameters() const
 {
-    return QJsonObject({ { "gs", 456 } });
+    return m_pTree->property(m_root);
 }
 
 void ParametersController::setRoot(const QString& root)
@@ -33,10 +36,5 @@ void ParametersController::setRoot(const QString& root)
 
     m_root = root;
     emit rootChanged();
-}
-
-void ParametersController::start()
-{
-    m_pTree = Locator::get<IPropertyTree>();
-    Q_ASSERT(m_pTree);
+    emit parametersChanged();
 }

@@ -13,17 +13,14 @@ constexpr char adsb[] = "adsb";
 using namespace kjarni::domain;
 using namespace draken::endpoint;
 
-VehiclesController::VehiclesController(QObject* parent) : QObject(parent)
+VehiclesController::VehiclesController(QObject* parent) :
+    QObject(parent),
+    m_pTree(Locator::get<IPropertyTree>())
 {
+    Q_ASSERT(m_pTree);
 }
 
 QStringList VehiclesController::vehicles() const
 {
-    return { "UAV 1", "MAV 23", "ST-341" };
-}
-
-void VehiclesController::start()
-{
-    IPropertyTree* pTree = Locator::get<IPropertyTree>();
-    Q_ASSERT(pTree);
+    return m_pTree->rootNodes();
 }

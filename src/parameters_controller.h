@@ -1,10 +1,10 @@
 #ifndef PARAMETERS_CONTROLLER_H
 #define PARAMETERS_CONTROLLER_H
 
-#include "i_property_tree.h"
-
 #include <QJsonObject>
 #include <QObject>
+
+#include "i_property_tree.h"
 
 namespace draken::endpoint
 {
@@ -23,14 +23,13 @@ public:
 
 public slots:
     void setRoot(const QString& root);
-    void start();
 
 signals:
     void rootChanged();
     void parametersChanged();
 
 private:
-    kjarni::domain::IPropertyTree* m_pTree = nullptr;
+    kjarni::domain::IPropertyTree* const m_pTree;
 
     QString m_root;
 };

@@ -6,6 +6,8 @@ import Dreka.Draken 1.0
 Column {
     id: root
 
+    readonly property var tmi: controller.parameters
+
     property alias vehicle: controller.root
 
     // TODO: to helper
@@ -28,21 +30,21 @@ Column {
                 width: parent.width
                 prefix: qsTr("GS")
                 tipText: qsTr("Ground speed")
-                value: guardNaN(controller.parameters.gs)
+                value: guardNaN(tmi.gs)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("IAS")
                 tipText: qsTr("Indicated air speed")
-                value: guardNaN(controller.parameters.ias)
+                value: guardNaN(tmi.ias)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("TAS")
                 tipText: qsTr("True air speed")
-                value: guardNaN(controller.parameters.tas)
+                value: guardNaN(tmi.tas)
             }
         }
 
@@ -53,8 +55,8 @@ Column {
             markWidth: 1.5
             markFactor: 0.8
             zigzag: 7
-            pitch: guardNaN(controller.parameters.pitch)
-            roll: guardNaN(controller.parameters.roll)
+            pitch: guardNaN(tmi.pitch)
+            roll: guardNaN(tmi.roll)
 
             Indicators.ValueLabel {
                 anchors.centerIn: parent
@@ -81,21 +83,21 @@ Column {
                 width: parent.width
                 prefix: qsTr("ALT")
                 tipText: qsTr("Satellite altitude above main sea level")
-                value: guardNaN(controller.parameters.satelliteAltitude)
+                value: guardNaN(tmi.satelliteAltitude)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HGT")
                 tipText: qsTr("Height relative HOME position")
-                value: guardNaN(controller.parameters.relativeHeight)
+                value: guardNaN(tmi.relativeHeight)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("ELV")
                 tipText: qsTr("Elevation above terrain")
-                value: guardNaN(controller.parameters.elevation)
+                value: guardNaN(tmi.elevation)
             }
         }
     }

@@ -9,11 +9,7 @@ Controls.Pane {
 
     padding: Controls.Theme.margins
 
-    VehiclesController {
-        id: controller
-    }
-
-    Component.onCompleted: controller.start()
+    VehiclesController { id: controller }
 
     ColumnLayout {
         anchors.fill: parent
@@ -37,7 +33,7 @@ Controls.Pane {
         }
 
         GenericDashboard {
-            vehicle: vehiclesBox.currentText
+            vehicle: vehiclesBox.displayText
             Layout.fillWidth: true
         }
     }

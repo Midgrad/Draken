@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "i_property_tree.h"
+
 namespace draken::endpoint
 {
 class VehiclesController : public QObject
@@ -16,11 +18,11 @@ public:
 
     QStringList vehicles() const;
 
-public slots:
-    void start();
-
 signals:
     void vehiclesChanged();
+
+private:
+    kjarni::domain::IPropertyTree* const m_pTree;
 };
 } // namespace draken::endpoint
 
