@@ -22,7 +22,7 @@ Controls.Pane {
                 id: vehiclesBox
                 flat: true
                 model: controller.vehicles
-                labelText: qsTr("Vehicles")
+                labelText: qsTr("Vehicle")
             }
 
             Controls.Button {

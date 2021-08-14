@@ -110,13 +110,15 @@ Column {
             width: root.width / 4
 
             Indicators.ValueLabel {
-                prefix: qsTr("HDG")
                 width: parent.width
+                prefix: qsTr("HDG")
+                value: compas.heading
             }
 
             Indicators.ValueLabel {
-                prefix: qsTr("CRS")
                 width: parent.width
+                prefix: qsTr("CRS")
+                value: compas.course
             }
         }
 
@@ -129,6 +131,8 @@ Column {
             textOffset: fontSize * 1.5
             arrowSize: width * 0.2
             mark: "qrc:/icons/generic_aircraft.svg"
+            heading: guardNaN(tmi.heading)
+            course: guardNaN(tmi.course)
         }
 
         Column {
@@ -136,13 +140,15 @@ Column {
             width: root.width / 4
 
             Indicators.ValueLabel {
-                prefix: qsTr("WP")
                 width: parent.width
+                prefix: qsTr("WP")
+                value: guardNaN(tmi.wpDistance)
             }
 
             Indicators.ValueLabel {
-                prefix: qsTr("HOME")
                 width: parent.width
+                prefix: qsTr("HOME")
+                value: guardNaN(tmi.homeDistance)
             }
         }
     }
