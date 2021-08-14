@@ -6,7 +6,7 @@ import Dreka.Draken 1.0
 Column {
     id: root
 
-    readonly property var tmi: controller.parameters
+    readonly property var params: controller.parameters
 
     property alias vehicle: controller.root
 
@@ -17,7 +17,7 @@ Column {
 
     ParametersController { id: controller }
 
-    Indicators.Text { text: qsTr("STATE: -") }
+    Indicators.Text { text: qsTr("STATE") + ": " + params.state ? params.state : "-" }
 
     Row {
         spacing: 0
@@ -30,21 +30,21 @@ Column {
                 width: parent.width
                 prefix: qsTr("GS")
                 tipText: qsTr("Ground speed")
-                value: guardNaN(tmi.gs)
+                value: guardNaN(params.gs)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("IAS")
                 tipText: qsTr("Indicated air speed")
-                value: guardNaN(tmi.ias)
+                value: guardNaN(params.ias)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("TAS")
                 tipText: qsTr("True air speed")
-                value: guardNaN(tmi.tas)
+                value: guardNaN(params.tas)
             }
         }
 
@@ -55,8 +55,8 @@ Column {
             markWidth: 1.5
             markFactor: 0.8
             zigzag: 7
-            pitch: guardNaN(tmi.pitch)
-            roll: guardNaN(tmi.roll)
+            pitch: guardNaN(params.pitch)
+            roll: guardNaN(params.roll)
 
             Indicators.ValueLabel {
                 anchors.centerIn: parent
@@ -83,21 +83,21 @@ Column {
                 width: parent.width
                 prefix: qsTr("ALT")
                 tipText: qsTr("Satellite altitude above main sea level")
-                value: guardNaN(tmi.satelliteAltitude)
+                value: guardNaN(params.satelliteAltitude)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HGT")
                 tipText: qsTr("Height relative HOME position")
-                value: guardNaN(tmi.relativeHeight)
+                value: guardNaN(params.relativeHeight)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("ELV")
                 tipText: qsTr("Elevation above terrain")
-                value: guardNaN(tmi.elevation)
+                value: guardNaN(params.elevation)
             }
         }
     }
@@ -131,8 +131,8 @@ Column {
             textOffset: fontSize * 1.5
             arrowSize: width * 0.2
             mark: "qrc:/icons/generic_aircraft.svg"
-            heading: guardNaN(tmi.heading)
-            course: guardNaN(tmi.course)
+            heading: guardNaN(params.heading)
+            course: guardNaN(params.course)
         }
 
         Column {
@@ -142,14 +142,34 @@ Column {
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("WP")
-                value: guardNaN(tmi.wpDistance)
+                value: guardNaN(params.wpDistance)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HOME")
-                value: guardNaN(tmi.homeDistance)
+                value: guardNaN(params.homeDistance)
             }
+        }
+    }
+
+    Row {
+        spacing: 0
+
+        Controls.ComboBox {
+            width: root.width / 2
+            flat: true
+            labelText: qsTr("Mode")
+            model: params.modes ? params.modes : []
+            displayText: params.mode ? params.mode : ""
+        }
+
+        Controls.ComboBox {
+            width: root.width / 2
+            flat: true
+            labelText: qsTr("Waypoint")
+            model: params.wps ? params.wps : 0
+            displayText: params.wp ? params.wp : 0
         }
     }
 }

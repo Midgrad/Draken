@@ -24,3 +24,11 @@ QStringList VehiclesController::vehicles() const
 {
     return m_pTree->rootNodes();
 }
+
+void VehiclesController::test()
+{
+    for (const QString& vehicle : m_pTree->rootNodes())
+    {
+        emit vehicleDataChanged(vehicle, m_pTree->property(vehicle));
+    }
+}

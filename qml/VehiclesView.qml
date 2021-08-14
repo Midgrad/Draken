@@ -11,6 +11,17 @@ Controls.Pane {
 
     VehiclesController { id: controller }
 
+    Component.onCompleted: {
+        map.registerController("vehiclesController", controller)
+        timer.start();
+    }
+
+    Timer {
+        id: timer
+        interval: 1500;
+        onTriggered: controller.test()
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: Controls.Theme.spacing
