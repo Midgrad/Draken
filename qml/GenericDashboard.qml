@@ -167,7 +167,7 @@ Column {
         Controls.ComboBox {
             width: root.width / 2
             flat: true
-            labelText: qsTr("Waypoint")
+            labelText: qsTr("WP")
             model: params.wps ? params.wps : 0
             displayText: params.wp ? params.wp : 0
         }
