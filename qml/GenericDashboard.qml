@@ -17,13 +17,26 @@ Column {
 
     ParametersController { id: controller }
 
-    Indicators.Text { text: qsTr("STATE") + ": " + params.state ? params.state : "-" }
+    Row {
+        visible: maximized
+
+        Indicators.Text {
+            width: root.width / 2
+            text: qsTr("STATE") + ": " + params.state ? params.state : "-"
+        }
+
+        Indicators.Text {
+            width: root.width / 2
+            text: params.armed ? qsTr("ARMED") : qsTr("DISARMED")
+        }
+    }
 
     Row {
+        visible: maximized
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.spacing
+            spacing: Controls.Theme.padding
             width: root.width / 3.75
 
             Indicators.ValueLabel {
@@ -35,17 +48,12 @@ Column {
 
             Indicators.ValueLabel {
                 width: parent.width
-                prefix: qsTr("IAS")
+                prefix: qsTr("AS")
                 tipText: qsTr("Indicated air speed")
                 value: guardNaN(params.ias)
             }
 
-            Indicators.ValueLabel {
-                width: parent.width
-                prefix: qsTr("TAS")
-                tipText: qsTr("True air speed")
-                value: guardNaN(params.tas)
-            }
+            Indicators.Text { width: parent.width; text: qsTr("m/s") }
         }
 
         Indicators.AttitudeIndicator {
@@ -76,7 +84,7 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.spacing
+            spacing: Controls.Theme.padding
             width: root.width / 3.75
 
             Indicators.ValueLabel {
@@ -89,24 +97,20 @@ Column {
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HGT")
-                tipText: qsTr("Height relative HOME position")
+                tipText: qsTr("Barometric height relative HOME position")
                 value: guardNaN(params.relativeHeight)
             }
 
-            Indicators.ValueLabel {
-                width: parent.width
-                prefix: qsTr("ELV")
-                tipText: qsTr("Elevation above terrain")
-                value: guardNaN(params.elevation)
-            }
+            Indicators.Text { width: parent.width; text: qsTr("m") }
         }
     }
 
     Row {
+        visible: maximized
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.spacing
+            spacing: Controls.Theme.padding
             width: root.width / 4
 
             Indicators.ValueLabel {
@@ -120,6 +124,8 @@ Column {
                 prefix: qsTr("CRS")
                 value: compas.course
             }
+
+            Indicators.Text { width: parent.width; text: "\u00B0" }
         }
 
         Indicators.Compass {
@@ -136,7 +142,7 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.spacing
+            spacing: Controls.Theme.padding
             width: root.width / 4
 
             Indicators.ValueLabel {
@@ -150,6 +156,8 @@ Column {
                 prefix: qsTr("HOME")
                 value: guardNaN(params.homeDistance)
             }
+
+            Indicators.Text { width: parent.width; text: qsTr("m") }
         }
     }
 

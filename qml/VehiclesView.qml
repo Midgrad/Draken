@@ -7,6 +7,8 @@ import Dreka.Draken 1.0
 Controls.Pane {
     id: root
 
+    property bool maximized: true
+
     padding: Controls.Theme.margins
 
     VehiclesController { id: controller }
@@ -39,7 +41,9 @@ Controls.Pane {
             Controls.Button {
                 flat: true
                 round: true
-                iconSource: "qrc:/icons/up.svg"
+                tipText: maximized ? qsTr("Minimize") : qsTr("Maximize")
+                iconSource: maximized ? "qrc:/icons/up.svg" : "qrc:/icons/down.svg"
+                onClicked: maximized = !maximized
             }
         }
 
