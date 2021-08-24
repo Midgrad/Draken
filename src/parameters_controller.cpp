@@ -17,6 +17,12 @@ ParametersController::ParametersController(QObject* parent) :
     m_pTree(Locator::get<IPropertyTree>())
 {
     Q_ASSERT(m_pTree);
+
+    connect(m_pTree, &IPropertyTree::propertiesChanged, this,
+            [this](const QString& path, const QJsonObject& properties) {
+                if (m_root == path)
+                    emit parametersChanged();
+            });
 }
 
 QString ParametersController::root() const

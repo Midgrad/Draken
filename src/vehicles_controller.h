@@ -18,12 +18,8 @@ public:
 
     QStringList vehicles() const;
 
-public slots:
-    void test();
-
 signals:
     void vehiclesChanged();
-    void vehicleDataChanged(QString vehicle, QJsonObject data);
 
 private:
     kjarni::domain::IPropertyTree* const m_pTree;

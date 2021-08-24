@@ -18,17 +18,11 @@ VehiclesController::VehiclesController(QObject* parent) :
     m_pTree(Locator::get<IPropertyTree>())
 {
     Q_ASSERT(m_pTree);
+
+    connect(m_pTree, &IPropertyTree::nodesChanged, this, &VehiclesController::vehiclesChanged);
 }
 
 QStringList VehiclesController::vehicles() const
 {
     return m_pTree->rootNodes();
-}
-
-void VehiclesController::test()
-{
-    for (const QString& vehicle : m_pTree->rootNodes())
-    {
-        emit vehicleDataChanged(vehicle, m_pTree->property(vehicle));
-    }
 }
