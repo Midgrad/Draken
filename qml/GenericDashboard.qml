@@ -22,7 +22,7 @@ Column {
 
         Indicators.Text {
             width: root.width / 2
-            text: qsTr("STATE") + ": " + params.state ? params.state : "-"
+            text: qsTr("STATE") + ": " + (params.state ? params.state : "-")
         }
 
         Indicators.Text {
