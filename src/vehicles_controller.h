@@ -18,8 +18,11 @@ public:
 
     QStringList vehicles() const;
 
+    Q_INVOKABLE QJsonObject vehicleData(const QString& vehicle) const;
+
 signals:
     void vehiclesChanged();
+    void vehicleDataChanged(QString vehicle, QJsonObject data);
 
 private:
     kjarni::domain::IPropertyTree* const m_pTree;

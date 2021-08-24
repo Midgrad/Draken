@@ -4,11 +4,6 @@
 
 #include "locator.h"
 
-namespace
-{
-constexpr char adsb[] = "adsb";
-}
-
 using namespace kjarni::domain;
 using namespace draken::endpoint;
 
@@ -32,7 +27,7 @@ QString ParametersController::root() const
 
 QJsonObject ParametersController::parameters() const
 {
-    return m_pTree->property(m_root);
+    return m_pTree->properties(m_root);
 }
 
 void ParametersController::setRoot(const QString& root)
