@@ -22,11 +22,13 @@ Column {
 
         Indicators.Text {
             width: root.width / 2
+            color: params.state ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: qsTr("STATE") + ": " + (params.state ? params.state : "-")
         }
 
         Indicators.Text {
             width: root.width / 2
+            color: params.armed ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: params.armed ? qsTr("ARMED") : qsTr("DISARMED")
         }
     }
