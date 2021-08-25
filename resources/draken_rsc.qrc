@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/icons">
         <file>generic_aircraft.svg</file>
+        <file>track.svg</file>
+        <file>cancel_track.svg</file>
     </qresource>
 </RCC>

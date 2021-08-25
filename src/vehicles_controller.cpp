@@ -24,12 +24,42 @@ QStringList VehiclesController::vehicles() const
     return m_pTree->rootNodes();
 }
 
-QJsonObject VehiclesController::vehicleData(const QString& vehicle) const
+bool VehiclesController::isTracking() const
 {
-    return m_pTree->properties(vehicle);
+    return m_tracking;
+}
+
+QString VehiclesController::selectedVehicle() const
+{
+    return m_selectedVehicle;
 }
 
 int VehiclesController::trackLength() const
 {
     return -1;
+}
+
+QJsonObject VehiclesController::vehicleData(const QString& vehicle) const
+{
+    return m_pTree->properties(vehicle);
+}
+
+void VehiclesController::setTracking(bool tracking)
+{
+    if (m_tracking == tracking)
+        return;
+
+    m_tracking = tracking;
+    emit trackingChanged();
+}
+
+void VehiclesController::selectVehicle(const QString& selectedVehicle)
+{
+    this->setTracking(false);
+
+    if (m_selectedVehicle == selectedVehicle)
+        return;
+
+    m_selectedVehicle = selectedVehicle;
+    emit selectedVehicleChanged();
 }

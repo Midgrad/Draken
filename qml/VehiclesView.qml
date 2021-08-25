@@ -27,6 +27,8 @@ Controls.Pane {
                 flat: true
                 model: controller.vehicles
                 labelText: qsTr("Vehicle")
+                onDisplayTextChanged: controller.selectVehicle(displayText)
+                Layout.fillWidth: true
             }
 
             Controls.Button {
@@ -39,7 +41,6 @@ Controls.Pane {
         }
 
         GenericDashboard {
-            vehicle: vehiclesBox.displayText
             Layout.fillWidth: true
         }
     }

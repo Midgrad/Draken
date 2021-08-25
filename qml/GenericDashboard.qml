@@ -6,16 +6,45 @@ import Dreka.Draken 1.0
 Column {
     id: root
 
-    readonly property var params: controller.parameters
+    property var params: []
 
-    property alias vehicle: controller.root
+    Connections {
+        target: controller
+        onSelectedVehicleChanged: params = controller.vehicleData(controller.selectedVehicle)
+        onVehicleDataChanged: if (vehicle === controller.selectedVehicle) params = data
+    }
 
     // TODO: to helper
     function guardNaN(value) { return value ? value : NaN; }
 
     spacing: Controls.Theme.spacing
+    width: Controls.Theme.baseSize * 6
 
-    ParametersController { id: controller }
+    Row {
+        Controls.Button {
+            flat: true
+            height: parent.height
+            enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
+            iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
+            onClicked: controller.setTracking(!controller.tracking )
+        }
+
+        Column {
+            Indicators.Text {
+                color: params.latitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
+                text: qsTr("Lat:") + ": " +
+                      (params.latitude ? Controls.Helper.degreesToDmsString(params.latitude, false, 2)
+                                       : "-")
+            }
+
+            Indicators.Text {
+                color: params.longitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
+                text: qsTr("Lon:") + ": " +
+                      (params.longitude ? Controls.Helper.degreesToDmsString(params.longitude, true, 2)
+                                        : "-")
+            }
+        }
+    }
 
     Row {
         visible: maximized
@@ -167,7 +196,7 @@ Column {
         spacing: 0
 
         Controls.ComboBox {
-            width: root.width / 2
+            width: root.width / 3 * 2
             flat: true
             labelText: qsTr("Mode")
             model: params.modes ? params.modes : []
@@ -175,7 +204,7 @@ Column {
         }
 
         Controls.ComboBox {
-            width: root.width / 2
+            width: root.width / 3
             flat: true
             labelText: qsTr("WP")
             model: params.wps ? params.wps : 0
