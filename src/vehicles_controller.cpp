@@ -28,3 +28,8 @@ QJsonObject VehiclesController::vehicleData(const QString& vehicle) const
 {
     return m_pTree->properties(vehicle);
 }
+
+int VehiclesController::trackLength() const
+{
+    return -1;
+}
