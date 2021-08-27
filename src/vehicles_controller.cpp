@@ -10,7 +10,7 @@ using namespace draken::endpoint;
 
 VehiclesController::VehiclesController(QObject* parent) :
     QObject(parent),
-    m_pTree(Locator::get<IPropertyTree>())
+    m_pTree(kjarni::app::Locator::get<IPropertyTree>())
 {
     Q_ASSERT(m_pTree);
 
