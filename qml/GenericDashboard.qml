@@ -101,7 +101,7 @@ Column {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: -parent.height / 4
                 prefixFont.pixelSize: Controls.Theme.auxFontSize * 0.8
-                prefix: qsTr("PTCH")
+                prefix: qsTr("PITCH")
                 value: ai.pitch
             }
 
@@ -120,16 +120,16 @@ Column {
 
             Indicators.ValueLabel {
                 width: parent.width
-                prefix: qsTr("ALT")
-                tipText: qsTr("Satellite altitude above main sea level")
-                value: guardNaN(params.satelliteAltitude)
+                prefix: qsTr("AMSL")
+                tipText: qsTr("Altitude above main sea level")
+                value: guardNaN(params.altitudeAmsl)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
-                prefix: qsTr("HGT")
-                tipText: qsTr("Barometric height relative HOME position")
-                value: guardNaN(params.relativeHeight)
+                prefix: qsTr("AREL")
+                tipText: qsTr("Altitude relative to HOME position")
+                value: guardNaN(params.altitudeRelative)
             }
 
             Indicators.Text { width: parent.width; text: qsTr("m") }
