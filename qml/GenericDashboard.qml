@@ -14,6 +14,10 @@ Column {
         onVehicleDataChanged: if (vehicle === controller.selectedVehicle) params = data
     }
 
+    function setParam(param, data) {
+        controller.setVehicleData(controller.selectedVehicle, { param: data });
+    }
+
     // TODO: to helper
     function guardNaN(value) { return value ? value : NaN; }
 
@@ -201,14 +205,16 @@ Column {
             labelText: qsTr("Mode")
             model: params.modes ? params.modes : []
             displayText: params.mode ? params.mode : ""
+            onActivated: setParam("setMode", model[index])
         }
 
         Controls.ComboBox {
             width: root.width / 3
             flat: true
             labelText: qsTr("WP")
-            model: params.wps ? params.wps : 0
+            model: params.wpCount ? params.wpCount : 0
             displayText: params.wp ? params.wp : 0
+            onActivated: setParam("setWp", model[index])
         }
     }
 }

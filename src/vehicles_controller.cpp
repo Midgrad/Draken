@@ -63,3 +63,9 @@ void VehiclesController::selectVehicle(const QString& selectedVehicle)
     m_selectedVehicle = selectedVehicle;
     emit selectedVehicleChanged();
 }
+
+void VehiclesController::setVehicleData(const QString& vehicle, const QJsonObject& data)
+{
+    qDebug() << vehicle << data;
+    m_pTree->appendProperties(vehicle, data);
+}

@@ -30,6 +30,7 @@ public:
 public slots:
     void setTracking(bool tracking);
     void selectVehicle(const QString& selectedVehicle);
+    void setVehicleData(const QString& vehicle, const QJsonObject& data);
 
 signals:
     void vehiclesChanged();
