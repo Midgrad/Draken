@@ -5,7 +5,7 @@
 
 #include "i_property_tree.h"
 
-namespace draken::endpoint
+namespace md::presentation
 {
 class VehiclesController : public QObject
 {
@@ -41,10 +41,10 @@ signals:
     void vehicleDataChanged(QString vehicle, QJsonObject data);
 
 private:
-    kjarni::domain::IPropertyTree* const m_pTree;
+    md::domain::IPropertyTree* const m_pTree;
     bool m_tracking = false;
     QString m_selectedVehicle;
 };
-} // namespace draken::endpoint
+} // namespace md::presentation
 
 #endif // VEHICLES_CONTROLLER_H

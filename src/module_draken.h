@@ -3,14 +3,14 @@
 
 #include "i_module.h"
 
-namespace draken::app
+namespace md::app
 {
 class ModuleDraken
     : public QObject
-    , public kjarni::app::IModule
+    , public md::app::IModule
 {
     Q_OBJECT
-    Q_INTERFACES(kjarni::app::IModule)
+    Q_INTERFACES(md::app::IModule)
     Q_PLUGIN_METADATA(IID "Midgrad.ModuleDraken" FILE "meta.json")
 
 public:
@@ -18,6 +18,6 @@ public:
 
     void visit(QJsonObject& features) override;
 };
-} // namespace draken::app
+} // namespace md::app
 
 #endif // MODULE_DRAKEN_H

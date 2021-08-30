@@ -6,14 +6,13 @@
 
 #include "vehicles_controller.h"
 
-using namespace draken::app;
+using namespace md::app;
 
 void registerTypes()
 {
     Q_INIT_RESOURCE(industrial_indicators_qml);
 
-    qmlRegisterType<draken::endpoint::VehiclesController>("Dreka.Draken", 1, 0,
-                                                          "VehiclesController");
+    qmlRegisterType<md::presentation::VehiclesController>("Dreka.Draken", 1, 0, "VehiclesController");
 }
 
 Q_COREAPP_STARTUP_FUNCTION(registerTypes);

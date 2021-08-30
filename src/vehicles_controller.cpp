@@ -5,12 +5,12 @@
 #include "i_property_tree.h"
 #include "locator.h"
 
-using namespace kjarni::domain;
-using namespace draken::endpoint;
+using namespace md::domain;
+using namespace md::presentation;
 
 VehiclesController::VehiclesController(QObject* parent) :
     QObject(parent),
-    m_pTree(kjarni::app::Locator::get<IPropertyTree>())
+    m_pTree(md::app::Locator::get<IPropertyTree>())
 {
     Q_ASSERT(m_pTree);
 
@@ -66,6 +66,8 @@ void VehiclesController::selectVehicle(const QString& selectedVehicle)
 
 void VehiclesController::setVehicleData(const QString& vehicle, const QJsonObject& data)
 {
-    qDebug() << vehicle << data;
+    if (data.isEmpty())
+        return;
+
     m_pTree->appendProperties(vehicle, data);
 }

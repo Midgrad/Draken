@@ -15,7 +15,9 @@ Column {
     }
 
     function setParam(param, data) {
-        controller.setVehicleData(controller.selectedVehicle, { param: data });
+        var object = {};
+        object[param] = data;
+        controller.setVehicleData(controller.selectedVehicle, object);
     }
 
     // TODO: to helper
