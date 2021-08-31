@@ -39,7 +39,7 @@ int VehiclesController::trackLength() const
     return -1;
 }
 
-QJsonObject VehiclesController::vehicleData(const QString& vehicle) const
+QVariantMap VehiclesController::vehicleData(const QString& vehicle) const
 {
     return m_pTree->properties(vehicle);
 }
@@ -64,7 +64,7 @@ void VehiclesController::selectVehicle(const QString& selectedVehicle)
     emit selectedVehicleChanged();
 }
 
-void VehiclesController::setVehicleData(const QString& vehicle, const QJsonObject& data)
+void VehiclesController::setVehicleData(const QString& vehicle, const QVariantMap& data)
 {
     if (data.isEmpty())
         return;

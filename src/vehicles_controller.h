@@ -1,8 +1,6 @@
 #ifndef VEHICLES_CONTROLLER_H
 #define VEHICLES_CONTROLLER_H
 
-#include <QObject>
-
 #include "i_property_tree.h"
 
 namespace md::presentation
@@ -25,12 +23,12 @@ public:
     QString selectedVehicle() const;
     int trackLength() const;
 
-    Q_INVOKABLE QJsonObject vehicleData(const QString& vehicle) const;
+    Q_INVOKABLE QVariantMap vehicleData(const QString& vehicle) const;
 
 public slots:
     void setTracking(bool tracking);
     void selectVehicle(const QString& selectedVehicle);
-    void setVehicleData(const QString& vehicle, const QJsonObject& data);
+    void setVehicleData(const QString& vehicle, const QVariantMap& data);
 
 signals:
     void vehiclesChanged();
@@ -38,7 +36,7 @@ signals:
     void selectedVehicleChanged();
     void trackLengthChanged();
 
-    void vehicleDataChanged(QString vehicle, QJsonObject data);
+    void vehicleDataChanged(QString vehicle, QVariantMap data);
 
 private:
     md::domain::IPropertyTree* const m_pTree;
