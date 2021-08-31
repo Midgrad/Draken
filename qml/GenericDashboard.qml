@@ -202,7 +202,7 @@ Column {
         spacing: 0
 
         Controls.ComboBox {
-            width: root.width / 3 * 2
+            width: root.width / 8 * 5
             flat: true
             labelText: qsTr("Mode")
             model: params.modes ? params.modes : []
@@ -211,12 +211,14 @@ Column {
         }
 
         Controls.ComboBox {
-            width: root.width / 3
+            id: wpBox
+            width: root.width / 8 * 3
             flat: true
             labelText: qsTr("WP")
             model: params.wpCount ? params.wpCount : 0
-            displayText: params.wp ? params.wp : 0
-            onActivated: setParam("setWp", model[index])
+            displayText: params.wp ? params.wp : "-"
+            Binding on currentIndex { value: params.wp ? params.wp : 0; when: !wpBox.activeFocus}
+            onActivated: setParam("setWp", index)
         }
     }
 }
