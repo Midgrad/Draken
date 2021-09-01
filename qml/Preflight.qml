@@ -15,21 +15,13 @@ Controls.Popup {
         spacing: 0
 
         Repeater {
-            model: [
-                { text: qsTr("AHRS"), reliable: params.ahrs },
-                { text: qsTr("SNS"), reliable: params.satellite },
-                { text: qsTr("Barometric"), reliable: params.barometric },
-                { text: qsTr("Pitot"), reliable: params.pitot },
-                { text: qsTr("Radalt"), reliable: params.radalt },
-                { text: qsTr("Battery"), reliable: params.battery },
-                { text: qsTr("Mission"), reliable: params.mission },
-                { text: qsTr("Arm ready"), reliable: params.armReady }
-            ]
+            model: params.devices ? params.devices : []
 
             delegate: ChecklistItem {
-                text: modelData.text
-                failed: !modelData.reliable
-                active: typeof(params.online) !== "undefined" && params.online
+                visible: modelData.present
+                text: modelData.name
+                failed: !modelData.health
+                active: modelData.enabled/* TODO: online && typeof(params.online) !== "undefined" && params.online*/
                 onFailedChanged: failed ? fails++ : fails --
                 Layout.fillWidth: true
             }
@@ -42,6 +34,8 @@ Controls.Popup {
 
         Controls.DelayButton {
             flat: true
+            borderColor: Qt.darker(Controls.Theme.colors.negative, 2)
+            fillColor: borderColor
             text: params.armed ? qsTr("Disarm throttle"): qsTr("Arm throttle")
             onActivated: setParam("setArmed", !params.armed)
             Layout.fillWidth: true

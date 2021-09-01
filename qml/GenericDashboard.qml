@@ -38,7 +38,7 @@ Column {
 
             Preflight {
                 id: preflight
-                closePolicy: Controls.Popup.CloseOnPressOutsideParent
+                closePolicy: Controls.Popup.NoAutoClose
                 x: -width - Controls.Theme.margins - Controls.Theme.spacing
             }
         }
