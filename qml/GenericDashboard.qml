@@ -27,33 +27,6 @@ Column {
     width: Controls.Theme.baseSize * 6
 
     Row {
-        Controls.Button {
-            flat: true
-            height: parent.height
-            rightCropped: true
-            enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
-            iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
-            onClicked: controller.setTracking(!controller.tracking )
-        }
-
-        Column {
-            Indicators.Text {
-                color: params.latitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
-                text: qsTr("Lat:") + ": " +
-                      (params.latitude ? Controls.Helper.degreesToDmsString(params.latitude, false, 2)
-                                       : "-")
-            }
-
-            Indicators.Text {
-                color: params.longitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
-                text: qsTr("Lon:") + ": " +
-                      (params.longitude ? Controls.Helper.degreesToDmsString(params.longitude, true, 2)
-                                        : "-")
-            }
-        }
-    }
-
-    Row {
         visible: maximized
 
         Controls.Button {
@@ -71,14 +44,44 @@ Column {
         }
 
         Indicators.Text {
-            width: root.width / 2
+            anchors.verticalCenter: parent.verticalCenter
+            width: (root.width- Controls.Theme.baseSize) / 2
             color: params.state ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
-            text: qsTr("STATE") + ": " + (params.state ? params.state : "-")
+            text: params.state ? params.state : "-"
         }
 
         Indicators.Text {
+            anchors.verticalCenter: parent.verticalCenter
+            width: (root.width- Controls.Theme.baseSize) / 2
             color: params.armed ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: params.armed ? qsTr("ARMED") : qsTr("DISARMED")
+        }
+    }
+
+    Row {
+        Controls.Button {
+            flat: true
+            height: parent.height
+            rightCropped: true
+            enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
+            iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
+            onClicked: controller.setTracking(!controller.tracking )
+        }
+
+        Column {
+            Indicators.Text {
+                color: params.latitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
+                text: qsTr("Lat") + ":\t" +
+                      (params.latitude ? Controls.Helper.degreesToDmsString(params.latitude, false, 2)
+                                       : "-")
+            }
+
+            Indicators.Text {
+                color: params.longitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
+                text: qsTr("Lon") + ":\t" +
+                      (params.longitude ? Controls.Helper.degreesToDmsString(params.longitude, true, 2)
+                                        : "-")
+            }
         }
     }
 
@@ -87,7 +90,7 @@ Column {
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.padding
+            spacing: Controls.Theme.spacing
             width: root.width / 3.75
 
             Indicators.ValueLabel {
@@ -135,7 +138,7 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.padding
+            spacing: Controls.Theme.spacing
             width: root.width / 3.75
 
             Indicators.ValueLabel {
@@ -161,7 +164,7 @@ Column {
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.padding
+            spacing: Controls.Theme.spacing
             width: root.width / 4
 
             Indicators.ValueLabel {
@@ -193,7 +196,7 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.padding
+            spacing: Controls.Theme.spacing
             width: root.width / 4
 
             Indicators.ValueLabel {
