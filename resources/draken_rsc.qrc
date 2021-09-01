@@ -3,5 +3,6 @@
         <file>generic_aircraft.svg</file>
         <file>track.svg</file>
         <file>cancel_track.svg</file>
+        <file>calibrate.svg</file>
     </qresource>
 </RCC>

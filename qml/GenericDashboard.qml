@@ -30,6 +30,7 @@ Column {
         Controls.Button {
             flat: true
             height: parent.height
+            rightCropped: true
             enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
             iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
             onClicked: controller.setTracking(!controller.tracking )
@@ -55,6 +56,20 @@ Column {
     Row {
         visible: maximized
 
+        Controls.Button {
+            flat: true
+            rightCropped: true
+            iconSource: "qrc:/icons/calibrate.svg"
+            highlighted: preflight.visible
+            onClicked: preflight.visible ? preflight.close() : preflight.open()
+
+            Preflight {
+                id: preflight
+                closePolicy: Controls.Popup.CloseOnPressOutsideParent
+                x: -width - Controls.Theme.margins - Controls.Theme.spacing
+            }
+        }
+
         Indicators.Text {
             width: root.width / 2
             color: params.state ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
@@ -62,7 +77,6 @@ Column {
         }
 
         Indicators.Text {
-            width: root.width / 2
             color: params.armed ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: params.armed ? qsTr("ARMED") : qsTr("DISARMED")
         }
@@ -216,7 +230,7 @@ Column {
             flat: true
             labelText: qsTr("WP")
             model: params.wpCount ? params.wpCount : 0
-            displayText: params.wp ? params.wp : "-"
+            displayText: typeof(params.wp) !== "undefined" ? params.wp : "-"
             Binding on currentIndex { value: params.wp ? params.wp : 0; when: !wpBox.activeFocus}
             onActivated: setParam("setWp", index)
         }

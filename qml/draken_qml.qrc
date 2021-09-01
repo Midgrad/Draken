@@ -2,5 +2,7 @@
     <qresource prefix="/Draken">
         <file>VehiclesView.qml</file>
         <file>GenericDashboard.qml</file>
+        <file>Preflight.qml</file>
+        <file>ChecklistItem.qml</file>
     </qresource>
 </RCC>
