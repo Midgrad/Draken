@@ -8,7 +8,10 @@ Controls.Popup {
 
     property int fails: 0
 
+    width: Controls.Theme.baseSize * 5
+
     ColumnLayout {
+        anchors.fill: parent
         spacing: 0
 
         Repeater {
