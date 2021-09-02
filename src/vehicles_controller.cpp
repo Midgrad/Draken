@@ -36,7 +36,7 @@ QString VehiclesController::selectedVehicle() const
 
 int VehiclesController::trackLength() const
 {
-    return -1;
+    return 1000; // TODO: settings
 }
 
 QVariantMap VehiclesController::vehicleData(const QString& vehicle) const

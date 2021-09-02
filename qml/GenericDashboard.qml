@@ -45,14 +45,14 @@ Column {
 
         Indicators.Text {
             anchors.verticalCenter: parent.verticalCenter
-            width: (root.width- Controls.Theme.baseSize) / 2
+            width: (root.width - Controls.Theme.baseSize) / 2
             color: params.state ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: params.state ? params.state : "-"
         }
 
         Indicators.Text {
             anchors.verticalCenter: parent.verticalCenter
-            width: (root.width- Controls.Theme.baseSize) / 2
+            width: (root.width - Controls.Theme.baseSize) / 2
             color: params.armed ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
             text: params.armed ? qsTr("ARMED") : qsTr("DISARMED")
         }
@@ -117,6 +117,7 @@ Column {
             markWidth: 1.5
             markFactor: 0.8
             zigzag: 7
+            ready: typeof params.online !== "undefined" && params.online
             pitch: guardNaN(params.pitch)
             roll: guardNaN(params.roll)
 
