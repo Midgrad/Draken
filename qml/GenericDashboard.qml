@@ -34,12 +34,13 @@ Column {
             flat: true
             rightCropped: true
             iconSource: "qrc:/icons/calibrate.svg"
+            tipText: qsTr("Preparation")
             highlighted: preflight.visible
             onClicked: preflight.visible ? preflight.close() : preflight.open()
 
             Preflight {
                 id: preflight
-                closePolicy: Controls.Popup.NoAutoClose
+                closePolicy: Controls.Popup.CloseOnPressOutsideParent
                 x: -width - Controls.Theme.margins - Controls.Theme.spacing
             }
         }
@@ -60,12 +61,15 @@ Column {
     }
 
     Row {
+        visible: maximized
+
         Controls.Button {
             flat: true
             height: parent.height
             rightCropped: true
             enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
             iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
+            tipText: controller.tracking ? qsTr("Cancel track") : qsTr("Track")
             onClicked: controller.setTracking(!controller.tracking )
         }
 
@@ -173,12 +177,14 @@ Column {
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HDG")
+                tipText: qsTr("Heading")
                 value: compas.heading
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("CRS")
+                tipText: qsTr("Course")
                 value: compas.course
             }
 
@@ -205,12 +211,14 @@ Column {
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("WP")
+                tipText: qsTr("Waypoint distance")
                 value: guardNaN(params.wpDistance)
             }
 
             Indicators.ValueLabel {
                 width: parent.width
                 prefix: qsTr("HOME")
+                tipText: qsTr("Home distance")
                 value: guardNaN(params.homeDistance)
             }
 
