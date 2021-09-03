@@ -24,7 +24,7 @@ Controls.Pane {
 
             Controls.Button {
                 id: trackButton
-                enabled: vehiclesBox.displayText.length
+                enabled: controller.selectedVehicle.length
                 flat: true
                 rightCropped: true
                 iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
