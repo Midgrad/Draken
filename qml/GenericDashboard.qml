@@ -14,14 +14,15 @@ Column {
         onVehicleDataChanged: if (vehicle === controller.selectedVehicle) params = data
     }
 
+    // TODO: to helper
     function setParam(param, data) {
         var object = {};
         object[param] = data;
         controller.setVehicleData(controller.selectedVehicle, object);
     }
 
-    // TODO: to helper
     function guardNaN(value) { return value ? value : NaN; }
+    function guardBool(value) { return typeof value !== "undefined" && value; }
 
     spacing: Controls.Theme.spacing
     width: Controls.Theme.baseSize * 6
@@ -117,7 +118,8 @@ Column {
             markWidth: 1.5
             markFactor: 0.8
             zigzag: 7
-            ready: typeof params.online !== "undefined" && params.online
+            online: guardBool(params.online)
+            ready: guardBool(params.armed)
             pitch: guardNaN(params.pitch)
             roll: guardNaN(params.roll)
 

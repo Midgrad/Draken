@@ -21,7 +21,7 @@ Controls.Popup {
                 visible: modelData.present
                 text: modelData.name
                 failed: !modelData.health
-                active: modelData.enabled && typeof(params.online) !== "undefined" && params.online
+                active: modelData.enabled && guardBool(params.online)
                 onFailedChanged: failed ? fails++ : fails --
                 Layout.fillWidth: true
             }
