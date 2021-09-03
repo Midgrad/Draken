@@ -20,7 +20,18 @@ Controls.Pane {
         spacing: Controls.Theme.spacing
 
         RowLayout {
-            spacing: Controls.Theme.spacing
+            spacing: 0
+
+            Controls.Button {
+                id: trackButton
+                enabled: vehiclesBox.displayText.length
+                flat: true
+                rightCropped: true
+                iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
+                tipText: controller.tracking ? qsTr("Cancel track") : qsTr("Track")
+                onClicked: controller.setTracking(!controller.tracking )
+                Layout.fillHeight: true
+            }
 
             Controls.ComboBox {
                 id: vehiclesBox
@@ -33,10 +44,11 @@ Controls.Pane {
 
             Controls.Button {
                 flat: true
-                round: true
+                leftCropped: true
                 tipText: maximized ? qsTr("Minimize") : qsTr("Maximize")
                 iconSource: maximized ? "qrc:/icons/up.svg" : "qrc:/icons/down.svg"
                 onClicked: maximized = !maximized
+                Layout.fillHeight: true
             }
         }
 

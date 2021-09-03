@@ -4,5 +4,6 @@
         <file>GenericDashboard.qml</file>
         <file>Preflight.qml</file>
         <file>ChecklistItem.qml</file>
+        <file>Coordinates.qml</file>
     </qresource>
 </RCC>

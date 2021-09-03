@@ -4,5 +4,6 @@
         <file>track.svg</file>
         <file>cancel_track.svg</file>
         <file>calibrate.svg</file>
+        <file>gps.svg</file>
     </qresource>
 </RCC>

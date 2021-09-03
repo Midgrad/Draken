@@ -63,30 +63,47 @@ Column {
     Row {
         visible: maximized
 
-        Controls.Button {
-            flat: true
-            height: parent.height
-            rightCropped: true
-            enabled: typeof params.latitude !== "undefined" && typeof params.longitude !== "undefined"
-            iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
-            tipText: controller.tracking ? qsTr("Cancel track") : qsTr("Track")
-            onClicked: controller.setTracking(!controller.tracking )
+        Controls.ColoredIcon {
+            id: snsIcon
+            color: {
+                if (typeof params.gpsFix === "undefined")
+                    return Indicators.Theme.disabledColor;
+
+                switch (params.gpsFix) {
+                case -1:
+                case 0: return Indicators.Theme.extremeRed;
+                case 1: return Indicators.Theme.severeOrange;
+                case 2: return Indicators.Theme.moderateYellow;
+                case 3:
+                default: return Indicators.Theme.textColor;
+                }
+            }
+            source: "qrc:/icons/gps.svg"
+            height: Controls.Theme.baseSize
+            width: height
+
+            Text {
+                text: guardNaN(params.satellitesVisible)
+                font.pixelSize: parent.height / 4
+                font.bold: true
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                color: parent.color
+            }
         }
 
-        Column {
-            Indicators.Text {
-                color: params.latitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
-                text: qsTr("Lat") + ":\t" +
-                      (params.latitude ? Controls.Helper.degreesToDmsString(params.latitude, false, 2)
-                                       : "-")
-            }
+        Coordinates {
+            id: coordinates
+            width: root.width - snsIcon.width - switchButton.width
+        }
 
-            Indicators.Text {
-                color: params.longitude ? Indicators.Theme.textColor : Indicators.Theme.disabledColor
-                text: qsTr("Lon") + ":\t" +
-                      (params.longitude ? Controls.Helper.degreesToDmsString(params.longitude, true, 2)
-                                        : "-")
-            }
+        Controls.Button {
+            id: switchButton
+            flat: true
+            leftCropped: true
+            iconSource: "qrc:/icons/swap.svg"
+            tipText: qsTr("Switch coordinates presentation")
+            onClicked: coordinates.dms = !coordinates.dms
         }
     }
 
@@ -112,7 +129,11 @@ Column {
                 value: guardNaN(params.ias)
             }
 
-            Indicators.Text { width: parent.width; text: qsTr("m/s") }
+            Indicators.Text {
+                width: parent.width
+                font.pixelSize: Indicators.Theme.auxFontSize
+                text: qsTr("m/s")
+            }
         }
 
         Indicators.AttitudeIndicator {
@@ -162,7 +183,11 @@ Column {
                 value: guardNaN(params.altitudeRelative)
             }
 
-            Indicators.Text { width: parent.width; text: qsTr("m") }
+            Indicators.Text {
+                width: parent.width
+                font.pixelSize: Indicators.Theme.auxFontSize
+                text: qsTr("m")
+            }
         }
     }
 
@@ -188,7 +213,11 @@ Column {
                 value: compas.course
             }
 
-            Indicators.Text { width: parent.width; text: "\u00B0" }
+            Indicators.Text {
+                width: parent.width
+                font.pixelSize: Indicators.Theme.auxFontSize
+                text: "\u00B0"
+            }
         }
 
         Indicators.Compass {
@@ -222,7 +251,11 @@ Column {
                 value: guardNaN(params.homeDistance)
             }
 
-            Indicators.Text { width: parent.width; text: qsTr("m") }
+            Indicators.Text {
+                width: parent.width
+                font.pixelSize: Indicators.Theme.auxFontSize
+                text: qsTr("m")
+            }
         }
     }
 
