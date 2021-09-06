@@ -21,6 +21,7 @@ VehiclesController::VehiclesController(QObject* parent) :
 
 QStringList VehiclesController::vehicles() const
 {
+    // TODO: vehicles only
     return m_pTree->rootNodes();
 }
 

@@ -39,7 +39,7 @@ signals:
     void vehicleDataChanged(QString vehicle, QVariantMap data);
 
 private:
-    md::domain::IPropertyTree* const m_pTree;
+    domain::IPropertyTree* const m_pTree;
     bool m_tracking = false;
     QString m_selectedVehicle;
 };
