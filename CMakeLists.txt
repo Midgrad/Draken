@@ -1,6 +1,9 @@
 # Project
 project(Draken)
 
+# Set output directory
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${MODULE_OUTPUT_DIRECTORY})
+
 # Find Qt libraries
 find_package(Qt5 ${QT_REQUIRED_VERSION} COMPONENTS Gui Qml REQUIRED)
 
