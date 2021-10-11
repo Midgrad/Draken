@@ -16,7 +16,7 @@ class ModuleDraken
 public:
     Q_INVOKABLE ModuleDraken();
 
-    void visit(QJsonObject& features) override;
+    void init() override;
 };
 } // namespace md::app
 
