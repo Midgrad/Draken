@@ -2,6 +2,9 @@
 #define VEHICLES_CONTROLLER_H
 
 #include "i_property_tree.h"
+#include "i_vehicles_service.h"
+
+#include <QJsonArray>
 
 namespace md::presentation
 {
@@ -9,39 +12,44 @@ class VehiclesController : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QStringList vehicles READ vehicles NOTIFY vehiclesChanged)
+    Q_PROPERTY(QJsonArray vehicles READ vehicles NOTIFY vehiclesChanged)
+    Q_PROPERTY(QJsonObject selectedVehicle READ selectedVehicle NOTIFY selectedVehicleChanged)
     Q_PROPERTY(bool tracking READ isTracking WRITE setTracking NOTIFY trackingChanged)
-    Q_PROPERTY(QString selectedVehicle READ selectedVehicle WRITE selectVehicle NOTIFY
-                   selectedVehicleChanged)
     Q_PROPERTY(int trackLength READ trackLength NOTIFY trackLengthChanged)
 
 public:
     explicit VehiclesController(QObject* parent = nullptr);
 
-    QStringList vehicles() const;
+    QJsonArray vehicles() const;
+    QJsonObject selectedVehicle() const;
     bool isTracking() const;
-    QString selectedVehicle() const;
     int trackLength() const;
 
     Q_INVOKABLE QVariantMap vehicleData(const QString& vehicle) const;
 
 public slots:
+    void selectVehicle(const QString& selectedVehicleId);
     void setTracking(bool tracking);
-    void selectVehicle(const QString& selectedVehicle);
-    void setVehicleData(const QString& vehicle, const QVariantMap& data);
+    // TODO: change to command
+    void setVehicleData(const QString& vehicleId, const QVariantMap& data);
 
 signals:
     void vehiclesChanged();
-    void trackingChanged();
     void selectedVehicleChanged();
+    void trackingChanged();
     void trackLengthChanged();
 
-    void vehicleDataChanged(QString vehicle, QVariantMap data);
+    void vehicleDataChanged(QString vehicleId, QVariantMap data);
+
+private slots:
+    void onVehiclesChanged();
 
 private:
     domain::IPropertyTree* const m_pTree;
+    domain::IVehiclesService* const m_vehiclesService;
+    QJsonArray m_vehicles;
+    QString m_selectedVehicleId;
     bool m_tracking = false;
-    QString m_selectedVehicle;
 };
 } // namespace md::presentation
 

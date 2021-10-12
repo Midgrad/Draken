@@ -24,7 +24,7 @@ Controls.Pane {
 
             Controls.Button {
                 id: trackButton
-                enabled: controller.selectedVehicle.length
+                enabled: controller.selectedVehicle
                 flat: true
                 rightCropped: true
                 iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
@@ -38,7 +38,8 @@ Controls.Pane {
                 flat: true
                 model: controller.vehicles
                 labelText: qsTr("Vehicle")
-                onDisplayTextChanged: controller.selectVehicle(displayText)
+                textRole: "name"
+                onActivated: controller.selectVehicle(model[index].id)
                 Layout.fillWidth: true
             }
 

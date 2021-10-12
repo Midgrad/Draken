@@ -10,15 +10,15 @@ Column {
 
     Connections {
         target: controller
-        onSelectedVehicleChanged: params = controller.vehicleData(controller.selectedVehicle)
-        onVehicleDataChanged: if (vehicle === controller.selectedVehicle) params = data
+        onSelectedVehicleChanged: params = controller.vehicleData(controller.selectedVehicle.id)
+        onVehicleDataChanged: if (vehicleId === controller.selectedVehicle.id) params = data
     }
 
     // TODO: to helper
     function setParam(param, data) {
         var object = {};
         object[param] = data;
-        controller.setVehicleData(controller.selectedVehicle, object);
+        controller.setVehicleData(controller.selectedVehicle.id, object);
     }
 
     function guardNaN(value) { return value ? value : NaN; }
