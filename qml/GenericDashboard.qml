@@ -14,13 +14,6 @@ Column {
         onVehicleDataChanged: if (vehicleId === controller.selectedVehicle.id) params = data
     }
 
-    // TODO: to helper
-    function setParam(param, data) {
-        var object = {};
-        object[param] = data;
-        controller.setVehicleData(controller.selectedVehicle.id, object);
-    }
-
     function guardNaN(value) { return value ? value : NaN; }
     function guardBool(value) { return typeof value !== "undefined" && value; }
 
@@ -269,7 +262,7 @@ Column {
             labelText: qsTr("Mode")
             model: params.modes ? params.modes : []
             displayText: params.mode ? params.mode : ""
-            onActivated: setParam("setMode", model[index])
+            onActivated: controller.sendCommand("setMode", [ model[index] ])
         }
 
         Controls.ComboBox {
@@ -280,7 +273,7 @@ Column {
             model: params.wpCount ? params.wpCount : 0
             displayText: typeof(params.wp) !== "undefined" ? params.wp : "-"
             Binding on currentIndex { value: params.wp ? params.wp : 0; when: !wpBox.activeFocus}
-            onActivated: setParam("setWp", index)
+            onActivated: controller.sendCommand("setWp", [ index ])
         }
     }
 }

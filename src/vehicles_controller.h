@@ -1,6 +1,7 @@
 #ifndef VEHICLES_CONTROLLER_H
 #define VEHICLES_CONTROLLER_H
 
+#include "i_command_service.h"
 #include "i_property_tree.h"
 #include "i_vehicles_service.h"
 
@@ -30,8 +31,7 @@ public:
 public slots:
     void selectVehicle(const QString& selectedVehicleId);
     void setTracking(bool tracking);
-    // TODO: change to command
-    void setVehicleData(const QString& vehicleId, const QVariantMap& data);
+    void sendCommand(const QString& commandId, const QVariantList& args);
 
 signals:
     void vehiclesChanged();
@@ -47,6 +47,7 @@ private slots:
 private:
     domain::IPropertyTree* const m_pTree;
     domain::IVehiclesService* const m_vehiclesService;
+    domain::ICommandsService* const m_commandsService;
     QJsonArray m_vehicles;
     QString m_selectedVehicleId;
     bool m_tracking = false;

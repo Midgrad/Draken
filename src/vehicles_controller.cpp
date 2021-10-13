@@ -10,10 +10,12 @@ using namespace md::presentation;
 VehiclesController::VehiclesController(QObject* parent) :
     QObject(parent),
     m_pTree(md::app::Locator::get<IPropertyTree>()),
-    m_vehiclesService(md::app::Locator::get<IVehiclesService>())
+    m_vehiclesService(md::app::Locator::get<IVehiclesService>()),
+    m_commandsService(md::app::Locator::get<ICommandsService>())
 {
     Q_ASSERT(m_pTree);
     Q_ASSERT(m_vehiclesService);
+    Q_ASSERT(m_commandsService);
 
     connect(m_pTree, &IPropertyTree::propertiesChanged, this,
             &VehiclesController::vehicleDataChanged);
@@ -63,6 +65,11 @@ void VehiclesController::setTracking(bool tracking)
     emit trackingChanged();
 }
 
+void VehiclesController::sendCommand(const QString& commandId, const QVariantList& args)
+{
+    m_commandsService->requestCommand(commandId)->exec(m_selectedVehicleId, args);
+}
+
 void VehiclesController::selectVehicle(const QString& selectedVehicleId)
 {
     if (m_selectedVehicleId == selectedVehicleId)
@@ -71,14 +78,6 @@ void VehiclesController::selectVehicle(const QString& selectedVehicleId)
     this->setTracking(false);
     m_selectedVehicleId = selectedVehicleId;
     emit selectedVehicleChanged();
-}
-
-void VehiclesController::setVehicleData(const QString& vehicleId, const QVariantMap& data)
-{
-    if (data.isEmpty())
-        return;
-
-    m_pTree->appendProperties(vehicleId, data);
 }
 
 void VehiclesController::onVehiclesChanged()

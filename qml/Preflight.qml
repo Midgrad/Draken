@@ -37,7 +37,7 @@ Controls.Popup {
             borderColor: Qt.darker(Controls.Theme.colors.negative, 2)
             fillColor: borderColor
             text: params.armed ? qsTr("Disarm throttle"): qsTr("Arm throttle")
-            onActivated: setParam("setArmed", !params.armed)
+            onActivated: controller.sendCommand("setArmed", [ !params.armed ])
             Layout.fillWidth: true
         }
     }
