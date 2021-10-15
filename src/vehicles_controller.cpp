@@ -32,13 +32,9 @@ QJsonArray VehiclesController::vehicles() const
     return m_vehicles;
 }
 
-QJsonObject VehiclesController::selectedVehicle() const
+QString VehiclesController::selectedVehicle() const
 {
-    Vehicle* vehicle = m_vehiclesService->vehicle(m_selectedVehicleId);
-    if (!vehicle)
-        return QJsonObject();
-
-    return vehicle->toJson();
+    return m_selectedVehicleId;
 }
 
 bool VehiclesController::isTracking() const

@@ -14,7 +14,7 @@ class VehiclesController : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QJsonArray vehicles READ vehicles NOTIFY vehiclesChanged)
-    Q_PROPERTY(QJsonObject selectedVehicle READ selectedVehicle NOTIFY selectedVehicleChanged)
+    Q_PROPERTY(QString selectedVehicle READ selectedVehicle NOTIFY selectedVehicleChanged)
     Q_PROPERTY(bool tracking READ isTracking WRITE setTracking NOTIFY trackingChanged)
     Q_PROPERTY(int trackLength READ trackLength NOTIFY trackLengthChanged)
 
@@ -22,7 +22,7 @@ public:
     explicit VehiclesController(QObject* parent = nullptr);
 
     QJsonArray vehicles() const;
-    QJsonObject selectedVehicle() const;
+    QString selectedVehicle() const;
     bool isTracking() const;
     int trackLength() const;
 

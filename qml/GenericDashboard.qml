@@ -10,15 +10,15 @@ Column {
 
     Connections {
         target: controller
-        onSelectedVehicleChanged: params = controller.vehicleData(controller.selectedVehicle.id)
-        onVehicleDataChanged: if (vehicleId === controller.selectedVehicle.id) params = data
+        onSelectedVehicleChanged: params = controller.vehicleData(controller.selectedVehicle)
+        onVehicleDataChanged: if (vehicleId === controller.selectedVehicle) params = data
     }
 
     function guardNaN(value) { return value ? value : NaN; }
     function guardBool(value) { return typeof value !== "undefined" && value; }
 
     spacing: Controls.Theme.spacing
-    width: Controls.Theme.baseSize * 6
+    width: Controls.Theme.baseSize * 7
 
     Row {
         visible: maximized
@@ -256,13 +256,23 @@ Column {
     Row {
         spacing: 0
 
-        Controls.ComboBox {
-            width: root.width / 8 * 5
+        Controls.Button {
+            id: missionButton
+            height: parent.height
             flat: true
-            labelText: qsTr("Mode")
-            model: params.modes ? params.modes : []
-            displayText: params.mode ? params.mode : ""
-            onActivated: controller.sendCommand("setMode", [ model[index] ])
+            rightCropped: true
+            iconSource: "qrc:/icons/route.svg"
+            tipText: qsTr("Mission")
+            highlighted: mission.visible
+            enabled: controller.selectedVehicle
+            onClicked: mission.visible ? mission.close() : mission.open()
+
+            MissionView {
+                id: mission
+                x: -width - Controls.Theme.margins - Controls.Theme.spacing
+                y: parent.y - height + parent.height
+                closePolicy: Controls.Popup.CloseOnPressOutsideParent
+            }
         }
 
         Controls.ComboBox {
@@ -274,6 +284,15 @@ Column {
             displayText: typeof(params.wp) !== "undefined" ? params.wp : "-"
             Binding on currentIndex { value: params.wp ? params.wp : 0; when: !wpBox.activeFocus}
             onActivated: controller.sendCommand("setWp", [ index ])
+        }
+
+        Controls.ComboBox {
+            width: root.width - wpBox.width - missionButton.width
+            flat: true
+            labelText: qsTr("Mode")
+            model: params.modes ? params.modes : []
+            displayText: params.mode ? params.mode : "-"
+            onActivated: controller.sendCommand("setMode", [ model[index] ])
         }
     }
 }

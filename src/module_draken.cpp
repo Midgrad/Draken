@@ -6,6 +6,7 @@
 
 #include "i_gui_layout.h"
 #include "locator.h"
+#include "mission_controller.h"
 #include "vehicles_controller.h"
 
 using namespace md::app;
@@ -16,6 +17,7 @@ void registerTypes()
 
     qmlRegisterType<md::presentation::VehiclesController>("Dreka.Draken", 1, 0,
                                                           "VehiclesController");
+    qmlRegisterType<md::presentation::MissionController>("Dreka.Draken", 1, 0, "MissionController");
 }
 
 Q_COREAPP_STARTUP_FUNCTION(registerTypes);

@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/Draken">
         <file>VehiclesView.qml</file>
+        <file>MissionView.qml</file>
         <file>GenericDashboard.qml</file>
         <file>Preflight.qml</file>
         <file>ChecklistItem.qml</file>
