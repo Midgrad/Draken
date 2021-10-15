@@ -29,7 +29,7 @@ Controls.Pane {
                 rightCropped: true
                 iconSource: controller.tracking ? "qrc:/icons/cancel_track.svg" : "qrc:/icons/track.svg"
                 tipText: controller.tracking ? qsTr("Cancel track") : qsTr("Track")
-                onClicked: controller.setTracking(!controller.tracking )
+                onClicked: controller.setTracking(!controller.tracking)
                 Layout.fillHeight: true
             }
 

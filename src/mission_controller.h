@@ -14,16 +14,21 @@ class MissionController : public QObject
     Q_PROPERTY(QJsonObject mission READ mission NOTIFY missionChanged)
     Q_PROPERTY(QJsonObject missionStatus READ missionStatus NOTIFY missionStatusChanged)
     Q_PROPERTY(QJsonObject route READ route NOTIFY routeChanged)
+    Q_PROPERTY(int waypointCount READ waypointCount NOTIFY routeChanged)
+    Q_PROPERTY(int currentWaypoint READ currentWaypoint NOTIFY currentWaypointChanged)
 
 public:
     explicit MissionController(QObject* parent = nullptr);
 
-    Q_INVOKABLE QJsonObject mission() const;
-    Q_INVOKABLE QJsonObject missionStatus() const;
-    Q_INVOKABLE QJsonObject route() const;
+    QJsonObject mission() const;
+    QJsonObject missionStatus() const;
+    QJsonObject route() const;
+    int waypointCount() const;
+    int currentWaypoint() const;
 
 public slots:
     void setVehicleId(const QString& vehicleId);
+    void setMission(domain::Mission* mission);
 
     void save(const QJsonObject& data);
     void remove();
@@ -31,11 +36,13 @@ public slots:
     void download();
     void clear();
     void cancel();
+    void switchWaypoint(int index);
 
 signals:
     void missionChanged();
     void missionStatusChanged();
     void routeChanged();
+    void currentWaypointChanged();
 
 private:
     domain::IMissionsService* const m_missionsService;

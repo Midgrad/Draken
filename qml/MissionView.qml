@@ -7,6 +7,11 @@ import Dreka.Draken 1.0
 Controls.Popup {
     id: root
 
+    readonly property alias waypointCount: missionController.waypointCount
+    readonly property alias currentWaypoint: missionController.currentWaypoint
+
+    function switchWaypoint(index) { missionController.switchWaypoint(index) }
+
     MissionController {
         id: missionController
         vehicleId: controller.selectedVehicle
@@ -61,20 +66,21 @@ Controls.Popup {
             Controls.Button {
                 text: qsTr("Download")
                 borderColor: Controls.Theme.colors.controlBorder
-                enabled: mission.vehicle ? mission.vehicle.length : false
+                enabled: mission.id ? true : false
                 onClicked: missionController.download()
             }
 
             Controls.Button {
                 text: qsTr("Upload")
                 borderColor: Controls.Theme.colors.controlBorder
-                enabled: mission.vehicle ? mission.vehicle.length : false
+                enabled: mission.id ? true : false
                 onClicked: missionController.upload()
             }
 
             Controls.Button {
                 text: qsTr("Clear")
                 borderColor: Controls.Theme.colors.controlBorder
+                enabled: mission.id ? true : false
                 highlightColor: Controls.Theme.colors.negative
                 hoverColor: highlightColor
                 onClicked: missionController.clear()

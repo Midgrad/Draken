@@ -279,11 +279,11 @@ Column {
             id: wpBox
             width: root.width / 8 * 3
             flat: true
-            labelText: qsTr("WP")
-            model: params.wpCount ? params.wpCount : 0
-            displayText: typeof(params.wp) !== "undefined" ? params.wp : "-"
-            Binding on currentIndex { value: params.wp ? params.wp : 0; when: !wpBox.activeFocus}
-            onActivated: controller.sendCommand("setWp", [ index ])
+            labelText: qsTr("WPT")
+            model: mission.waypointCount
+            displayText: mission.currentWaypoint
+            Binding on currentIndex { value: mission.currentWaypoint; when: !wpBox.activeFocus}
+            onActivated: mission.switchWaypoint(index)
         }
 
         Controls.ComboBox {

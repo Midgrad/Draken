@@ -17,6 +17,10 @@ MissionController::MissionController(QObject* parent) :
         if (m_mission == mission)
             emit missionChanged();
     });
+    connect(m_missionsService, &IMissionsService::missionRemoved, this, [this](Mission* mission) {
+        if (m_mission == mission)
+            this->setMission(nullptr);
+    });
 }
 
 QJsonObject MissionController::mission() const
@@ -43,10 +47,29 @@ QJsonObject MissionController::route() const
     return m_mission->route()->toJson(true);
 }
 
+int MissionController::waypointCount() const
+{
+    if (!m_mission)
+        return 0;
+
+    return m_mission->route()->count();
+}
+
+int MissionController::currentWaypoint() const
+{
+    if (!m_mission)
+        return 0;
+
+    return m_mission->currentWaypoint();
+}
+
 void MissionController::setVehicleId(const QString& vehicleId)
 {
-    Mission* mission = m_missionsService->missionForVehicle(vehicleId);
+    this->setMission(m_missionsService->missionForVehicle(vehicleId));
+}
 
+void MissionController::setMission(Mission* mission)
+{
     if (m_mission == mission)
         return;
 
@@ -61,11 +84,14 @@ void MissionController::setVehicleId(const QString& vehicleId)
     {
         connect(mission, &Mission::statusChanged, this, &MissionController::missionStatusChanged);
         connect(mission, &Mission::routeChanged, this, &MissionController::routeChanged);
+        connect(mission, &Mission::currentWaypointChanged, this,
+                &MissionController::currentWaypointChanged);
     }
 
     emit missionChanged();
     emit missionStatusChanged();
     emit routeChanged();
+    emit currentWaypointChanged();
 }
 
 void MissionController::save(const QJsonObject& data)
@@ -115,4 +141,12 @@ void MissionController::cancel()
         return;
 
     emit m_mission->cancel();
+}
+
+void MissionController::switchWaypoint(int index)
+{
+    if (!m_mission)
+        return;
+
+    emit m_mission->switchWaypoint(index);
 }
