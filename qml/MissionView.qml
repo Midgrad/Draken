@@ -7,7 +7,7 @@ import Dreka.Draken 1.0
 Controls.Popup {
     id: root
 
-    readonly property alias waypointCount: missionController.waypointCount
+    readonly property alias waypoints: missionController.waypoints
     readonly property alias currentWaypoint: missionController.currentWaypoint
 
     function switchWaypoint(index) { missionController.switchWaypoint(index) }

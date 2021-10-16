@@ -18,7 +18,7 @@ Column {
     function guardBool(value) { return typeof value !== "undefined" && value; }
 
     spacing: Controls.Theme.spacing
-    width: Controls.Theme.baseSize * 7
+    width: Controls.Theme.baseSize * 8
 
     Row {
         visible: maximized
@@ -105,8 +105,9 @@ Column {
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.spacing
             width: root.width / 3.75
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Controls.Theme.spacing
 
             Indicators.ValueLabel {
                 width: parent.width
@@ -133,7 +134,7 @@ Column {
             id: ai
             width: root.width / 2.15
             height: width * 1.35
-            markWidth: 1.5
+            markWidth: 2
             markFactor: 0.8
             zigzag: 7
             online: guardBool(params.online)
@@ -159,8 +160,9 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.spacing
             width: root.width / 3.75
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Controls.Theme.spacing
 
             Indicators.ValueLabel {
                 width: parent.width
@@ -189,8 +191,9 @@ Column {
         spacing: 0
 
         Column {
-            spacing: Controls.Theme.spacing
             width: root.width / 4
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Controls.Theme.spacing
 
             Indicators.ValueLabel {
                 width: parent.width
@@ -228,8 +231,9 @@ Column {
         }
 
         Column {
-            spacing: Controls.Theme.spacing
             width: root.width / 4
+            anchors.verticalCenter: parent.verticalCenter
+            spacing: Controls.Theme.spacing
 
             Indicators.ValueLabel {
                 width: parent.width
@@ -277,19 +281,22 @@ Column {
 
         Controls.ComboBox {
             id: wpBox
-            width: root.width / 8 * 3
+            width: root.width / 5 * 2
             flat: true
             labelText: qsTr("WPT")
-            model: mission.waypointCount
-            displayText: mission.currentWaypoint
-            Binding on currentIndex { value: mission.currentWaypoint; when: !wpBox.activeFocus}
+            model: mission.waypoints
+            displayText: mission.waypoints[mission.currentWaypoint]
+            Binding on currentIndex {
+                value: mission.currentWaypoint
+                when: !wpBox.activeFocus
+            }
             onActivated: mission.switchWaypoint(index)
         }
 
         Controls.ComboBox {
             width: root.width - wpBox.width - missionButton.width
             flat: true
-            labelText: qsTr("Mode")
+            labelText: qsTr("MODE")
             model: params.modes ? params.modes : []
             displayText: params.mode ? params.mode : "-"
             onActivated: controller.sendCommand("setMode", [ model[index] ])

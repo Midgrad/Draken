@@ -47,12 +47,18 @@ QJsonObject MissionController::route() const
     return m_mission->route()->toJson(true);
 }
 
-int MissionController::waypointCount() const
+QStringList MissionController::waypoints() const
 {
-    if (!m_mission)
-        return 0;
+    QStringList list;
+    if (m_mission && m_mission->route())
+    {
+        for (Waypoint* waypoint : m_mission->route()->waypoints())
+        {
+            list.append(waypoint->name());
+        }
+    }
 
-    return m_mission->route()->count();
+    return list;
 }
 
 int MissionController::currentWaypoint() const

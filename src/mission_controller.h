@@ -14,7 +14,7 @@ class MissionController : public QObject
     Q_PROPERTY(QJsonObject mission READ mission NOTIFY missionChanged)
     Q_PROPERTY(QJsonObject missionStatus READ missionStatus NOTIFY missionStatusChanged)
     Q_PROPERTY(QJsonObject route READ route NOTIFY routeChanged)
-    Q_PROPERTY(int waypointCount READ waypointCount NOTIFY routeChanged)
+    Q_PROPERTY(QStringList waypoints READ waypoints NOTIFY routeChanged)
     Q_PROPERTY(int currentWaypoint READ currentWaypoint NOTIFY currentWaypointChanged)
 
 public:
@@ -23,7 +23,7 @@ public:
     QJsonObject mission() const;
     QJsonObject missionStatus() const;
     QJsonObject route() const;
-    int waypointCount() const;
+    QStringList waypoints() const;
     int currentWaypoint() const;
 
 public slots:
