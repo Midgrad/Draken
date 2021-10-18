@@ -15,10 +15,11 @@ Controls.Popup {
     MissionController {
         id: missionController
         vehicleId: controller.selectedVehicle
+        onMissionChanged: if (mission) routes.selectRoute(mission.id)
     }
 
-    property var mission: missionController.mission
-    property var missionStatus: missionController.missionStatus
+    readonly property var mission: missionController.mission
+    readonly property var missionStatus: missionController.missionStatus
 
     ColumnLayout {
         id: column
