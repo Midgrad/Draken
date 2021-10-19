@@ -28,7 +28,7 @@ QJsonObject MissionController::mission() const
     if (!m_mission)
         return QJsonObject();
 
-    return m_mission->toJson(false);
+    return QJsonObject::fromVariantMap(m_mission->toVariantMap(false));
 }
 
 QJsonObject MissionController::missionStatus() const
@@ -44,7 +44,7 @@ QJsonObject MissionController::route() const
     if (!m_mission)
         return QJsonObject();
 
-    return m_mission->route()->toJson(true);
+    return QJsonObject::fromVariantMap(m_mission->route()->toVariantMap(true));
 }
 
 QStringList MissionController::waypoints() const
@@ -105,7 +105,7 @@ void MissionController::save(const QJsonObject& data)
     if (!m_mission)
         return;
 
-    m_mission->fromJson(data);
+    m_mission->fromVariantMap(data.toVariantMap());
     m_missionsService->saveMission(m_mission);
 }
 

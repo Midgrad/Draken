@@ -81,7 +81,7 @@ void VehiclesController::onVehiclesChanged()
     m_vehicles = QJsonArray();
     for (domain::Vehicle* vehicle : m_vehiclesService->vehicles())
     {
-        m_vehicles += vehicle->toJson();
+        m_vehicles += QJsonObject::fromVariantMap(vehicle->toVariantMap());
     }
     emit vehiclesChanged();
 
