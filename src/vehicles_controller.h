@@ -3,7 +3,7 @@
 
 #include "i_command_service.h"
 #include "i_property_tree.h"
-#include "i_vehicles_service.h"
+#include "i_vehicles_repository.h"
 
 #include <QJsonArray>
 
@@ -46,7 +46,7 @@ private slots:
 
 private:
     domain::IPropertyTree* const m_pTree;
-    domain::IVehiclesService* const m_vehiclesService;
+    domain::IVehiclesRepository* const m_vehiclesRepository;
     domain::ICommandsService* const m_commandsService;
     QJsonArray m_vehicles;
     QString m_selectedVehicleId;
