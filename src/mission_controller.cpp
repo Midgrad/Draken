@@ -13,14 +13,16 @@ MissionController::MissionController(QObject* parent) :
 {
     Q_ASSERT(m_missionsRepository);
 
-    connect(m_missionsRepository, &IMissionsRepository::missionChanged, this, [this](Mission* mission) {
-        if (m_mission == mission)
-            emit missionChanged();
-    });
-    connect(m_missionsRepository, &IMissionsRepository::missionRemoved, this, [this](Mission* mission) {
-        if (m_mission == mission)
-            this->setMission(nullptr);
-    });
+    connect(m_missionsRepository, &IMissionsRepository::missionChanged, this,
+            [this](Mission* mission) {
+                if (m_mission == mission)
+                    emit missionChanged();
+            });
+    connect(m_missionsRepository, &IMissionsRepository::missionRemoved, this,
+            [this](Mission* mission) {
+                if (m_mission == mission)
+                    this->setMission(nullptr);
+            });
 }
 
 QJsonObject MissionController::mission() const
@@ -34,9 +36,9 @@ QJsonObject MissionController::mission() const
 QJsonObject MissionController::missionStatus() const
 {
     if (!m_mission)
-        return MissionStatus().toJson();
+        return QJsonObject::fromVariantMap(MissionStatus().toVariantMap());
 
-    return m_mission->status().toJson();
+    return QJsonObject::fromVariantMap(m_mission->missionStatus().toVariantMap());
 }
 
 QJsonObject MissionController::route() const
@@ -66,7 +68,7 @@ int MissionController::currentWaypoint() const
     if (!m_mission)
         return 0;
 
-    return m_mission->currentWaypoint();
+    return 0; //m_mission->currentWaypoint(); TODO: routeStatus
 }
 
 void MissionController::setVehicleId(const QString& vehicleId)
